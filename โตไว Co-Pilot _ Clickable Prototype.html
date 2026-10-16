@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>โตไว Co-Pilot | Clickable Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF3EE;--ink:#0C1F18;--mut:#4F5F57;--card:#fff;--line:#D8E4DC;--g:#00924A;--gd:#0B3D2E;--lm:#C4E85A;--red:#C0392B;--soft:#E6F6EC;--redsoft:#FDECEA;--rain:rgba(255,255,255,.07);--fd:"Bai Jamjuree","IBM Plex Sans Thai",Tahoma,sans-serif;--fb:"IBM Plex Sans Thai","Leelawadee UI",Tahoma,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08110E;--ink:#EAF3EE;--mut:#A7B8AF;--card:#12241D;--line:#24403A;--soft:#13301F;--redsoft:#3A1A17;--g:#2FD278}}
+:root[data-theme="dark"]{--bg:#08110E;--ink:#EAF3EE;--mut:#A7B8AF;--card:#12241D;--line:#24403A;--soft:#13301F;--redsoft:#3A1A17;--g:#2FD278}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(900px 500px at 15% -10%,rgba(0,160,74,.16),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(196,232,90,.18),transparent 60%),var(--bg);min-height:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,[role=button]:focus-visible{outline:3px solid var(--lm);outline-offset:2px}
+.wrap{max-width:940px;margin:0 auto;padding:24px 14px;display:flex;gap:34px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.phone{width:min(372px,100%);background:linear-gradient(160deg,#17332A,#06100C);border-radius:48px;padding:11px;box-shadow:0 30px 60px -10px rgba(5,30,20,.5),0 0 0 2px #2a4a40 inset}
+.screen{position:relative;height:720px;border-radius:38px;overflow:hidden;background:var(--bg)}
+.screen::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:92px;height:24px;background:#06100C;border-radius:99px;z-index:9}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;padding-top:34px;background:radial-gradient(260px 200px at 100% 0,rgba(196,232,90,.25),transparent 70%),radial-gradient(300px 240px at 0 100%,rgba(0,160,74,.14),transparent 70%),var(--bg)}
+.scr.on{display:flex;animation:in .3s ease-out}
+@keyframes in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.top{padding:10px 18px 8px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--mut);font-weight:500}
+.body{flex:1;overflow:auto;padding:4px 16px 12px;scrollbar-width:none}
+.cta{padding:10px 16px 20px;display:flex;flex-direction:column;gap:8px}
+.btn{border:0;border-radius:16px;padding:15px;font-family:var(--fd);font-size:16px;font-weight:700;background:linear-gradient(135deg,#00A04A,#008A3F);color:#fff;box-shadow:0 8px 18px -6px rgba(0,160,74,.6);transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:transparent;color:var(--mut);border:1px solid var(--line);font-family:var(--fb);font-weight:500;box-shadow:none}
+.chip{background:var(--lm);color:#0C1F18;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 15px;margin-top:11px;box-shadow:0 6px 16px -10px rgba(10,50,30,.25)}
+.card>b,.card .h{font-family:var(--fd);font-size:14px}
+h2{font-family:var(--fd);font-size:21px;margin:8px 0 2px;line-height:1.25}.mut{color:var(--mut);font-size:13px;line-height:1.55}
+.hero{position:relative;overflow:hidden;border-radius:22px;background:repeating-linear-gradient(115deg,transparent 0 14px,var(--rain) 14px 15px),linear-gradient(135deg,#0B3D2E,#00A04A);color:#fff;padding:18px;display:flex;gap:14px;align-items:center}
+.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(196,232,90,.5),transparent 70%)}
+.hero .em{flex:none;width:104px;line-height:0;animation:fl 3s ease-in-out infinite;position:relative;z-index:1;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3))}.hero .em svg{width:100%;height:auto}@keyframes fl{50%{transform:translateY(-5px)}}
+.hero b{font-family:var(--fd);font-size:17px;line-height:1.3;position:relative;z-index:1}.hero .pr{font-family:var(--fd);font-size:30px;font-weight:700;color:var(--lm);position:relative;z-index:1}
+.row{display:flex;gap:11px;align-items:center;font-size:13.5px;line-height:1.45;margin:9px 0}.row .ic{flex:none;width:34px;height:34px;border-radius:11px;background:var(--soft);display:grid;place-items:center;font-size:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}td{padding:5px 0}td:last-child{text-align:right;font-family:var(--fd);font-weight:600}
+tr.t td{border-top:1.5px dashed var(--line);font-weight:700;color:var(--g);padding-top:9px;font-family:var(--fd);font-size:16px}
+.badge{margin-top:9px;border-radius:12px;padding:9px 11px;font-size:12.5px;background:var(--soft);color:var(--g);font-weight:600}
+.badge.bad{background:var(--redsoft);color:var(--red)}
+.lock{background:repeating-linear-gradient(115deg,transparent 0 22px,rgba(255,255,255,.06) 22px 23px),linear-gradient(165deg,#06100C,#0B3D2E 58%,#00A04A);color:#fff;align-items:center;padding:60px 18px 0}
+.lock .tm{font-family:var(--fd);font-size:72px;font-weight:600;line-height:1;margin-top:6px;letter-spacing:-1px}
+.lock .ntf{width:100%;margin-top:64px;background:rgba(255,255,255,.14);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:14px;text-align:left;cursor:pointer;color:#fff}
+.lock .ntf small{opacity:.85}.lock .ntf b{display:block;margin:5px 0;font-family:var(--fd);font-size:16px}.pulse{margin-top:22px;font-size:13px;opacity:.9;animation:p 1.4s infinite}@keyframes p{50%{opacity:.35}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 4px;text-align:center}.stat b{display:block;font-family:var(--fd);font-size:22px;color:var(--g)}.stat span{font-size:11px;color:var(--mut)}
+.q,.pb{width:100%;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:11px 13px;margin-top:8px;font-size:13.5px;transition:.15s}
+.q.sel,.pb.sel{border-color:var(--g);background:var(--soft)}.pbs{display:flex;gap:9px;margin-top:10px}.pbs .pb{margin:0;text-align:center;font-family:var(--fd);font-weight:700;font-size:18px;padding:14px 6px}
+.tg{display:flex;justify-content:space-between;align-items:center;gap:10px}.sw{width:50px;height:30px;border-radius:99px;border:0;background:#9CA3AF;position:relative;flex:none;transition:.2s}.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}.sw[aria-checked="true"]{background:var(--g)}.sw[aria-checked="true"]::after{left:23px}
+.ok{width:84px;height:84px;margin:18px auto 0;border-radius:50%;background:radial-gradient(circle,var(--soft),transparent 72%);display:grid;place-items:center;font-size:54px;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}@keyframes pop{from{transform:scale(.4);opacity:0}}
+ul.ck{list-style:none;padding:0;margin:8px 0 0;font-size:13px;line-height:1.95}
+.bar{height:8px;border-radius:9px;background:var(--line);margin-top:9px;overflow:hidden}.bar i{display:block;height:100%;width:40%;border-radius:9px;background:linear-gradient(90deg,var(--g),var(--lm));transition:width .4s}
+#toast{position:absolute;left:16px;right:16px;bottom:96px;background:#06100C;color:#fff;border-radius:14px;padding:11px 13px;font-size:12.5px;opacity:0;pointer-events:none;transition:.3s;z-index:10}#toast.s{opacity:1}
+.side{width:min(340px,100%)}.side h1{font-family:var(--fd);font-size:26px;margin:0}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lang{display:flex;align-items:center;gap:7px;border:1.5px solid var(--g);background:var(--card);border-radius:99px;padding:7px 13px 7px 10px;font-family:var(--fd);font-weight:700;font-size:13px;color:var(--g)}
+.lang svg{width:19px;height:19px}
+.step{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:11px 13px;margin-top:9px;transition:.15s}
+.step:hover{transform:translateX(3px)}
+.step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--g);display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:14px}
+.step b{display:block;font-family:var(--fd);font-size:14.5px}.step span.d{font-size:12.5px;color:var(--mut);line-height:1.5}
+.step.act{border-color:var(--g);box-shadow:0 0 0 1.5px var(--g) inset}.step.act .n{background:var(--g);color:#fff}
+.note{margin-top:14px;font-size:12px;color:var(--mut);line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="phone"><div class="screen">
+
+<section class="scr lock on">
+<div data-t="day"></div><div class="tm">13:30</div>
+<div class="ntf" data-go="1" role="button" tabindex="0"><small data-t="ntf_s"></small><b data-t="ntf_t"></b><div style="font-size:13px;line-height:1.5" data-t="ntf_b"></div></div>
+<div class="pulse" data-t="pulse"></div>
+<div style="margin-top:auto;padding-bottom:18px;font-size:11px;opacity:.7" data-t="sim"></div>
+</section>
+
+<section class="scr">
+<div class="top"><span data-t="s1_top"></span><span class="chip" data-t="lv1"></span></div>
+<div class="body">
+<div class="hero"><div class="em" role="img" aria-label="Fried dumplings and lemon tea"><svg viewBox="0 0 120 92" aria-hidden="true"><defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7C85C"/><stop offset="1" stop-color="#D98A2B"/></linearGradient><linearGradient id="tg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3C04F"/><stop offset="1" stop-color="#C9731F"/></linearGradient></defs><ellipse cx="40" cy="76" rx="38" ry="10" fill="#fff"/><ellipse cx="40" cy="75" rx="30" ry="6.5" fill="none" stroke="#DCE8E0" stroke-width="1.5"/><g stroke="#A8611A" stroke-width="1.6" stroke-linejoin="round"><path d="M30 68Q50 32 72 68Q51 74 30 68Z" fill="url(#dg)"/><path d="M8 70Q28 36 50 70Q29 76 8 70Z" fill="url(#dg)"/></g><g stroke="#A8611A" stroke-width="1.3" stroke-linecap="round" opacity=".75"><path d="M16 56l3 4M23 51l2 5M30 51l-1 5M37 55l-3 4M40 52l3 5M47 50l1 6M55 52l-2 5M62 56l-3 4"/></g><path d="M20 62Q29 54 38 62" fill="none" stroke="#FBE3A0" stroke-width="2" stroke-linecap="round" opacity=".7"/><path d="M90 8L95 48" stroke="#C4E85A" stroke-width="4" stroke-linecap="round"/><path d="M79 30H109L105 80Q104 86 98 86H90Q84 86 83 80Z" fill="url(#tg2)" stroke="#fff" stroke-opacity=".6" stroke-width="1.5"/><path d="M80.5 30H107.500L107 38H81Z" fill="#fff" opacity=".25"/><rect x="86" y="46" width="11" height="11" rx="2.500" fill="#fff" opacity=".4" transform="rotate(-12 91 51)"/><rect x="95" y="60" width="10" height="10" rx="2.500" fill="#fff" opacity=".35" transform="rotate(14 100 65)"/><path d="M84 36L86 78" stroke="#fff" stroke-width="2.500" stroke-linecap="round" opacity=".45"/><g transform="translate(106 30)"><circle r="13" fill="#F5DC3E" stroke="#fff" stroke-width="1.500"/><circle r="10" fill="#FBF1A2"/><path d="M0-10V10M-10 0H10M-7-7L7 7M7-7L-7 7" stroke="#F5DC3E" stroke-width="1.400"/></g></svg></div><div><b data-t="set"></b><div class="pr">79฿</div></div></div>
+<div class="card"><b data-t="why"></b>
+<div class="row"><span class="ic">🌧</span><span data-t="w1"></span></div>
+<div class="row"><span class="ic">👥</span><span data-t="w2"></span></div>
+<div class="row"><span class="ic">🛵</span><span data-t="w3"></span></div></div>
+<div class="card"><table>
+<tr><td data-t="price"></td><td>79</td></tr><tr><td data-t="cost"></td><td>32</td></tr><tr><td data-t="pack"></td><td>3</td></tr><tr><td data-t="gp"></td><td>20</td></tr>
+<tr class="t"><td data-t="profit"></td><td>24฿</td></tr></table>
+<div class="badge" data-t="pass"></div></div>
+</div>
+<div class="cta"><button class="btn" data-go="2" data-t="open"></button><button class="btn sec" data-toast="no_toast" data-t="no"></button></div>
+</section>
+
+<section class="scr">
+<div class="top"><span data-t="s2_top"></span><span class="chip" data-t="lv1"></span></div>
+<div class="body">
+<div class="ok">✅</div>
+<h2 style="text-align:center" data-t="live"></h2><p class="mut" style="text-align:center" data-t="live_sub"></p>
+<div class="card"><div class="tg"><div><b style="font-size:14px" id="tgt"></b><div class="mut" data-t="free"></div></div><button class="sw" id="tg" role="switch" aria-checked="true" data-al="tg_al"></button></div></div>
+<div class="card"><div class="row" style="margin:0"><span class="ic">🖼</span><span data-t="img"></span></div></div>
+</div>
+<div class="cta"><button class="btn" data-go="3" data-t="see"></button></div>
+</section>
+
+<section class="scr">
+<div class="top"><span data-t="s3_top"></span><span class="chip">Prove + Learn</span></div>
+<div class="body">
+<div class="stats"><div class="stat"><b>12</b><span data-t="sets"></span></div><div class="stat"><b>948฿</b><span data-t="sales"></span></div><div class="stat"><b>288฿</b><span data-t="mp"></span></div></div>
+<p class="mut" data-t="ctrl"></p>
+<div class="card"><b data-t="qt"></b>
+<button class="q" data-ok="1" data-t="q1"></button><button class="q" data-ok="0" data-t="q2"></button><div class="mut" id="qf" style="margin-top:8px"></div></div>
+<div class="card"><b data-t="prog"></b><div class="bar"><i id="bar"></i></div><ul class="ck"><li data-t="c1"></li><li data-t="c2"></li><li id="qd"></li></ul></div>
+</div>
+<div class="cta"><button class="btn" data-go="4" data-t="l2"></button></div>
+</section>
+
+<section class="scr">
+<div class="top"><span data-t="s4_top"></span><span class="chip" data-t="lv2"></span></div>
+<div class="body">
+<h2 data-t="pick"></h2><p class="mut" data-t="pick_s"></p>
+<div class="pbs"><button class="pb" data-p="59">59฿</button><button class="pb" data-p="69">69฿</button><button class="pb" data-p="79">79฿</button></div>
+<div class="card"><div class="mut" data-t="formula"></div><div id="pc" style="font-family:var(--fd);font-size:16px;font-weight:700;margin-top:4px"></div><div class="badge" id="ps"></div></div>
+<div class="card"><div class="mut" data-t="rule"></div><div class="mut" id="pf" style="margin-top:6px;color:var(--ink)"></div></div>
+</div>
+<div class="cta"><button class="btn sec" data-go="0" data-t="restart"></button></div>
+</section>
+
+<div id="toast"></div>
+</div></div>
+
+<aside class="side">
+<div class="hd"><h1>โตไว Co-Pilot</h1>
+<button class="lang" id="lang" aria-label="Change language / เปลี่ยนภาษา"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.8 2.7 4.2 5.9 4.2 9.5s-1.4 6.8-4.2 9.5c-2.8-2.7-4.2-5.9-4.2-9.5S9.2 5.2 12 2.5z"/></svg><span id="lcode">EN</span></button></div>
+<p class="mut" data-t="intro"></p>
+<button class="step act"><i class="n">1</i><span><b data-t="st1"></b><span class="d" data-t="sd1"></span></span></button>
+<button class="step"><i class="n">2</i><span><b data-t="st2"></b><span class="d" data-t="sd2"></span></span></button>
+<button class="step"><i class="n">3</i><span><b data-t="st3"></b><span class="d" data-t="sd3"></span></span></button>
+<button class="step"><i class="n">4</i><span><b data-t="st4"></b><span class="d" data-t="sd4"></span></span></button>
+<button class="step"><i class="n">5</i><span><b data-t="st5"></b><span class="d" data-t="sd5"></span></span></button>
+<p class="note" data-t="note"></p>
+</aside>
+</div>
+<script>
+const D={th:{day:"วันพุธ",ntf_s:"โตไว Co-Pilot • ตอนนี้",ntf_t:"เจ๊พร บ่ายนี้ฝนจะตกช่วง 14-16 น.",ntf_b:"ไรเดอร์ในย่านว่างเยอะ ร้านตามสั่งคล้ายคุณ 24 ร้านทำเซ็ตบ่ายแล้วบิลเพิ่ม 12%*",pulse:"แตะการแจ้งเตือนเพื่อดูข้อเสนอ",sim:"*ข้อมูลจำลอง",
+s1_top:"ข้อเสนอวันนี้",lv1:"ระดับ 1 • AI ทำให้",set:"เซ็ตเกี๊ยวทอด + ชามะนาว",why:"ทำไมแนะนำตอนนี้",w1:"ฝนตก 14-16 น. ออฟฟิศรอบร้านสั่งของว่างเพิ่ม",w2:"ร้านตามสั่งคล้ายคุณ 24 ร้านในย่านนี้ บิลเฉลี่ย +12%*",w3:"ไรเดอร์ว่างในโซน ส่งเร็ว รีวิวไม่ตก",price:"ราคาขาย",cost:"− ต้นทุนวัตถุดิบ",pack:"− บรรจุภัณฑ์",gp:"− GP/ค่าธรรมเนียม*",profit:"กำไรส่วนเพิ่มต่อชุด",pass:"ผ่านเกณฑ์กำไรที่คุณตั้งไว้ (≥ 10฿)",open:"เปิดขาย 14:00-16:30",no:"ไม่เอา",no_toast:"รับทราบ ไม่เสนอเซ็ตนี้อีกสัปดาห์นี้",
+s2_top:"สถานะ",live:"เปิดขายแล้ว",live_sub:"เซ็ตเกี๊ยวทอด + ชามะนาว 79฿ • 14:00-16:30",tg_on:"เปิดขายอยู่ 14:00-16:30",tg_off:"ปิดโปรแล้ว (เปิดใหม่ได้ทุกเมื่อ)",free:"ปิดโปรได้ทุกเมื่อ ไม่มีการบังคับ",tg_al:"เปิดปิดโปร",img:"AI ทำรูปและชื่อเมนูให้แล้ว แก้ไขได้ก่อนเผยแพร่",see:"ดูผลตอน 17:00 (เดโม)",
+s3_top:"17:00 สรุปผลวันนี้",sets:"ชุด",sales:"ยอดขาย*",mp:"กำไรส่วนเพิ่ม*",ctrl:"ยังไม่หักยอดที่ลูกค้าซื้ออยู่แล้ว ระบบวัดเทียบร้านกลุ่มควบคุมต่อไป",qt:"ถามสั้น ๆ: ทำไมเซ็ตนี้ขายดีบ่ายนี้?",q1:"ฝนตก ลูกค้าอยากของว่างแล้วสั่งแทนออกไปซื้อ",q2:"เพราะราคาถูกกว่าร้านอื่น",fok:"ถูกต้อง: ข้อมูลฝนและร้านคล้ายกันชี้ไปที่ความอยากของว่าง ไม่ใช่ราคา",fno:"ลองใหม่: ราคาไม่ใช่เหตุผลหลักของเซ็ตนี้ ดูข้อมูลฝนและร้านคล้ายกัน",prog:"ความคืบหน้าสู่ระดับ 2",c1:"ทำตามข้อเสนอ 1/4 ครั้ง ○",c2:"กำไรส่วนเพิ่มรวมเป็นบวก ✓",c3:"ตอบเหตุผลถูก",l2:"ดูตัวอย่างระดับ 2",
+s4_top:"ลองตั้งราคาเอง",lv2:"ระดับ 2 • ทำด้วยกัน",pick:"เลือกราคาเซ็ตเกี๊ยวทอด + ชามะนาว",pick_s:"คุณเลือกเอง AI ตรวจกำไรให้ทันที",formula:"สูตรกำไรส่วนเพิ่ม",per:"฿/ชุด",rule:"เกณฑ์ที่ร้านตั้งไว้ล่วงหน้า: กำไรส่วนเพิ่มอย่างน้อย 10฿/ชุด",okb:"ผ่านเกณฑ์ที่คุณตั้งไว้",badb:"ไม่แนะนำ: กำไรส่วนเพิ่ม {pf}฿ ต่ำกว่าเกณฑ์ {th}฿",aiok:"AI: ราคานี้ไปต่อได้ ลองเทียบกับ 79฿ ว่ายอดขายต่างกันแค่ไหน",aibad:"AI: ลองราคา 69฿ ขึ้นไป หรือลดต้นทุนก่อน เพื่อไม่ให้กำไรบางเกินไป",restart:"เริ่มเดโมใหม่",
+intro:"Clickable prototype 5 หน้าจอ: เจ๊พร ร้านตามสั่ง ช่วงบ่ายเงียบ แตะเดินตามเรื่อง หรือเลือกหน้าจากรายการนี้",st1:"ทักตามจังหวะ",sd1:"AI เป็นฝ่ายเริ่ม ใช้อากาศและไรเดอร์ว่างในโซน",st2:"เหตุผล 1 บรรทัด + Guardrail",sd2:"สูตรกำไรครบ ผ่านเกณฑ์ที่ร้านตั้งเอง และ Playbook ร้านคล้ายกัน",st3:"Full Control",sd3:"เปิด/ปิดได้ทุกเมื่อ AI ทำรูปและชื่อเมนูให้",st4:"Prove + Learn",sd4:"วัดผล ถามเหตุผลสั้น ๆ เพื่อวัด Capability",st5:"Graduated Autonomy",sd5:"ร้านตัดสินใจเอง AI ตรวจกำไรแบบเรียลไทม์ (ลองกดราคา 59฿)",note:"*ข้อมูลทั้งหมดเป็นข้อมูลจำลอง (GP 20฿ และบรรจุภัณฑ์ 3฿ เป็นค่าสมมติ) ไม่ใช่ข้อมูลหรือสูตรจริงของ Grab ดีไซน์แยกเฉพาะ ไม่ใช่แอป Grab"},
+en:{day:"Wednesday",ntf_s:"Toway Co-Pilot • now",ntf_t:"Jae Porn, rain is coming 2-4 PM",ntf_b:"Plenty of idle riders nearby. 24 similar made-to-order shops ran an afternoon set and baskets grew 12%*",pulse:"Tap the notification to see the offer",sim:"*Simulated data",
+s1_top:"Today's offer",lv1:"Level 1 • AI does it",set:"Fried dumpling + lemon tea set",why:"Why now",w1:"Rain 2-4 PM: nearby offices will order extra snacks",w2:"24 similar shops in your area saw baskets +12%*",w3:"Riders are free in your zone: fast delivery, no review dips",price:"Selling price",cost:"− Ingredient cost",pack:"− Packaging",gp:"− GP / fees*",profit:"Margin per set",pass:"Meets your profit rule (≥ 10฿)",open:"Open sale 2:00-4:30 PM",no:"Not now",no_toast:"Got it. This set won't be suggested again this week",
+s2_top:"Status",live:"Now on sale",live_sub:"Fried dumpling + lemon tea set 79฿ • 2:00-4:30 PM",tg_on:"On sale 2:00-4:30 PM",tg_off:"Promo off (turn it on again anytime)",free:"Stop the promo anytime, no strings attached",tg_al:"Promo on/off",img:"AI made the photo and menu name. Edit before publishing",see:"See 5 PM results (demo)",
+s3_top:"5 PM today's summary",sets:"sets",sales:"Sales*",mp:"Margin*",ctrl:"Not yet net of orders customers would have placed anyway. We keep measuring against a control group",qt:"Quick question: why did this set sell this afternoon?",q1:"It rained, so people ordered snacks instead of going out",q2:"It was cheaper than other shops",fok:"Correct: rain and similar-shop data point to snack cravings, not price",fno:"Try again: price isn't the main reason for this set. Check the rain and similar-shop data",prog:"Progress to Level 2",c1:"Followed 1/4 offers ○",c2:"Total margin is positive ✓",c3:"Gave the right reason",l2:"Preview Level 2",
+s4_top:"Set your own price",lv2:"Level 2 • Together",pick:"Pick a price for the dumpling + lemon tea set",pick_s:"You choose. AI checks the margin instantly",formula:"Margin formula",per:"฿/set",rule:"Rule you set in advance: margin of at least 10฿ per set",okb:"Meets your profit rule",badb:"Not advised: margin {pf}฿ is below the {th}฿ threshold",aiok:"AI: this price works. Compare it with 79฿ to see how sales differ",aibad:"AI: try 69฿ or higher, or cut costs first so margin isn't too thin",restart:"Restart demo",
+intro:"Clickable prototype, 5 screens: Jae Porn, a made-to-order shop in a quiet afternoon. Tap through the story or pick a screen below",st1:"Timely nudge",sd1:"AI starts the conversation using weather and idle riders in the zone",st2:"One-line reason + Guardrail",sd2:"Full margin formula, passes the shop's own rule, plus a similar-shop Playbook",st3:"Full Control",sd3:"Turn it on or off anytime. AI makes the photo and menu name",st4:"Prove + Learn",sd4:"Measure results, ask a short why-question to gauge Capability",st5:"Graduated Autonomy",sd5:"The shop decides, AI checks margin in real time (try the 59฿ price)",note:"*All data is simulated (GP 20฿ and packaging 3฿ are assumptions), not Grab's real data or formulas. A standalone design, not the Grab app"}};
+let L='th',qs=null,tgOn=true,P=79;try{L=localStorage.getItem('lg')||((navigator.language||'').startsWith('th')?'th':'en')}catch(e){L=(navigator.language||'').startsWith('th')?'th':'en'}
+const t=k=>D[L][k]||k,$=id=>document.getElementById(id);
+const scr=[...document.querySelectorAll('.scr')],steps=[...document.querySelectorAll('.step')];
+function go(i){scr.forEach((s,k)=>s.classList.toggle('on',k===i));steps.forEach((s,k)=>s.classList.toggle('act',k===i));}
+function setP(p){P=p;const TH=10,gp=Math.round(p*.25),pf=p-32-3-gp,ok=pf>=TH;
+document.querySelectorAll('.pb').forEach(b=>b.classList.toggle('sel',+b.dataset.p===p));
+$('pc').textContent=p+' − 32 − 3 − GP* '+gp+' = '+pf+t('per');
+const s=$('ps');s.className='badge'+(ok?'':' bad');s.textContent=ok?t('okb'):t('badb').replace('{pf}',pf).replace('{th}',TH);
+$('pf').textContent=ok?t('aiok'):t('aibad');}
+function render(){document.documentElement.lang=L;
+document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));
+document.querySelectorAll('[data-al]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.al)));
+$('tgt').textContent=t(tgOn?'tg_on':'tg_off');
+$('qf').textContent=qs===null?'':t(qs?'fok':'fno');
+$('qd').textContent=t('c3')+(qs===1?' ✓':' ○');$('bar').style.width=(qs===1?66:40)+'%';
+$('lcode').textContent=L==='th'?'EN':'ไทย';setP(P);}
+function toast(k){const e=$('toast');e.textContent=t(k);e.classList.add('s');setTimeout(()=>e.classList.remove('s'),2300);}
+document.querySelectorAll('[data-go]').forEach(b=>{b.addEventListener('click',()=>go(+b.dataset.go));b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(+b.dataset.go)}})});
+steps.forEach((s,k)=>s.addEventListener('click',()=>go(k)));
+document.querySelectorAll('[data-toast]').forEach(b=>b.addEventListener('click',()=>toast(b.dataset.toast)));
+$('tg').addEventListener('click',()=>{tgOn=!tgOn;$('tg').setAttribute('aria-checked',String(tgOn));render();});
+document.querySelectorAll('.q').forEach(b=>b.addEventListener('click',()=>{qs=+b.dataset.ok;document.querySelectorAll('.q').forEach(x=>x.classList.toggle('sel',x===b));render();}));
+document.querySelectorAll('.pb').forEach(b=>b.addEventListener('click',()=>setP(+b.dataset.p)));
+$('lang').addEventListener('click',()=>{L=L==='th'?'en':'th';try{localStorage.setItem('lg',L)}catch(e){}render();});
+render();
+</script>
+</body>
+</html>
